@@ -5,7 +5,8 @@ var express = require("express"),
     flash = require("connect-flash"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
-    methodOverride = require("method-override")
+    methodOverride = require("method-override"),
+    User = require("./models/user")
 
 mongoose.connect("mongodb://localhost/crowler");
 

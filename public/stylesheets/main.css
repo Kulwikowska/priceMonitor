@@ -1,0 +1,13 @@
+body {
+    background-image: url("/images/sarah-dorweiler-357724-unsplash.jpg");
+    background-size: auto;
+}
+
+#login {
+    text-align: center;
+    margin: 25px auto;
+}
+
+a {
+    color: black;
+}
