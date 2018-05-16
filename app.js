@@ -6,7 +6,12 @@ var express = require("express"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
-    User = require("./models/user")
+    User = require("./models/user"),
+    http = require('http'),
+    request = require("request"),
+    cheerio = require('cheerio'),
+    URL = require('url-parse'),
+    Crawler = require("./crawler")
 
 mongoose.connect("mongodb://localhost/crowler");
 
@@ -19,7 +24,7 @@ app.use(flash());
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "secret",
+    secret: "secret word",
     resave: false,
     saveUninitialized: false
 }));
