@@ -14,6 +14,7 @@ router.get("/products", middleware.isLoggedIn, function(req, res) {
         if (err) {
             console.log(err);
         } else {
+            req.flash("succes", "Welcome in your dashboard!");
             res.render("./home/dashboard", { products: allProducts });
         }
     });
@@ -36,6 +37,7 @@ router.post("/products", middleware.isLoggedIn, function(req, res) {
                     console.log(err);
                 } else {
                     console.log(product);
+                    req.flash("success", "New product added");
                     res.redirect("/products");
                 }
             })
@@ -57,8 +59,7 @@ router.put("/products/:id", middleware.isLoggedIn, function(req, res) {
                         product.price = refreshedProduct.price;
                         product.lastRefreshed = Date.now();
                         product.save();
-                    }
-                    eq.flash("success", "Succesfully refreshed");
+                    };
                     res.redirect("/products");
                 }).catch(error => {
                     console.log("Error: " + error);
@@ -71,9 +72,10 @@ router.put("/products/:id", middleware.isLoggedIn, function(req, res) {
 router.delete("/products/:id", function(req, res) {
     Product.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
-            redirect("/products");
+            res.redirect("/products");
         } else {
-            redirect("/products");
+            req.flash("success", "Succesfully removed!");
+            res.redirect("/products");
         }
     });
 });
