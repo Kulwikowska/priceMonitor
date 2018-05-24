@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
+var middleware = require("../middleware");
+
 
 //root route 
 router.get("/", function(req, res) {
@@ -13,11 +15,6 @@ router.get("/register", function(req, res) {
     res.render("register");
 });
 
-//home 
-router.get("/dashboard", function(req, res) {
-    res.render("home/dashboard");
-});
-
 //handle sign up logic
 router.post("/register", function(req, res) {
     var newUser = new User({ username: req.body.username });
@@ -27,8 +24,8 @@ router.post("/register", function(req, res) {
             return res.render("register", { eroor: err.message });
         }
         passport.authenticate("local")(req, res, function() {
-            req.flash("success", "Welcome to Crowler! " + req.body.username);
-            res.redirect("/dashboard");
+            req.flash("success", "Welcome to Price Monitor! " + req.body.username);
+            res.redirect("/products");
         });
     });
 });
@@ -40,7 +37,7 @@ router.get("/login", function(req, res) {
 
 //handling login logic
 router.post("/login", passport.authenticate("local", {
-    succesRedirect: "/dashboard",
+    successRedirect: "/products",
     failureRedirect: "/login"
 }), function(req, res) {});
 

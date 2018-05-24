@@ -1,14 +1,15 @@
 var mongoose = require("mongoose");
 
 var ProductSchema = new mongoose.Schema({
+    url: String,
     name: String,
     price: Number,
-    imageURL: String,
-    createdAt: { type: Date, default: Date.now },
-    monitoringResults: [{
+    image: String,
+    lastRefreshed: { type: Date, default: Date.now },
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "MonitoringResults"
-    }]
+        ref: "User"
+    }
 });
 
 

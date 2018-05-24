@@ -9,9 +9,15 @@ body {
 }
 
 a {
-    color: black;
+    color: gray;
 }
 
 .img-thumbnail {
     height: 150px;
+}
+
+.jumbotron {
+    background-color: white;
+    text-align: center;
+    margin-bottom: 60px;
 }

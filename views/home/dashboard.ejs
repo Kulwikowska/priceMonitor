@@ -1,29 +1,64 @@
 <% include ../partials/header %>
 
-    <div style="text-align: center; margin: 50px auto;" class="row>
-        <ul class=" list-unstyled ">
-            <li class="media ">
-                <img class="mr-3 " src="... " alt="Generic placeholder image ">
-                <div class="media-body ">
-                    <h5 class="mt-0 mb-1 ">List-based media object</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </li>
-            <li class="media my-4 ">
-                <img class="mr-3 " src="... " alt="Generic placeholder image ">
-                <div class="media-body ">
-                    <h5 class="mt-0 mb-1 ">List-based media object</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </li>
-            <li class="media ">
-                <img class="mr-3 " src="... " alt="Generic placeholder image ">
-                <div class="media-body ">
-                    <h5 class="mt-0 mb-1 ">List-based media object</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </li>
-        </ul>
+
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+            <% } %>
+                <% if(success && success.length > 0){ %>
+                    <div class="alert alert-success" role="alert">
+                        <%= success %>
+                    </div>
+                    <% } %>
     </div>
 
-    <% include ../partials/footer %>
+    <header class="jumbotron ">
+        <div class="container">
+            <h1>Welcome To Price Monitor!</h1>
+            <p>Follow the products for FREE !</p>
+            <p>
+                <a class="btn btn-primary btn-large btn-dark" href="/products/new ">Add New Product</a>
+            </p>
+        </div>
+    </header>
+
+
+    <% products.forEach(function(product){ %>
+        <ul class="list-unstyled">
+
+            <li class="media">
+                <img class="mr-3 img-thumbnail img-responsive" src="<%=product.image%>" alt="Generic placeholder image">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">
+                        PRODUCT NAME :
+                        <%= product.name %>
+                    </h5>
+                    <h5>
+                        Last refreshed:
+                        <%= moment(product.createdAt).format('MMMM Do YYYY, h:mm:ss a') %>
+                    </h5>
+                    <h5> Actual price:
+                        <%= product.price.toFixed(2) %>
+                            PLN
+                    </h5>
+                    <form class="d-inline">
+                        <form id="update-form" class="update-form" action="/products/<%= product._id %>?_method=PUT" method="POST">
+                            <button class="btn btn-xs btn-light btn-outline-dark">Update price</button>
+                        </form>
+                        <form class="d-inline" id="delete-form" action="/products/<%= product._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </form>
+                </div>
+
+            </li>
+        </ul>
+        <% }); %>
+
+
+
+
+
+            <% include ../partials/footer %>

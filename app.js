@@ -7,11 +7,12 @@ var express = require("express"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     User = require("./models/user"),
+    Product = require("./models/product"),
     http = require('http'),
     request = require("request"),
     cheerio = require('cheerio'),
-    URL = require('url-parse'),
-    Crawler = require("./crawler")
+    URL = require('url-parse')
+
 
 mongoose.connect("mongodb://localhost/crowler");
 
@@ -21,6 +22,8 @@ app.use(express.static(__dirname + "/public"));
 app.use('/libs', express.static(__dirname + "/node_modules"));
 app.use(methodOverride("_method"));
 app.use(flash());
+
+app.locals.moment = require("moment");
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
@@ -44,8 +47,10 @@ app.use(function(req, res, next) {
 
 //requiring routes 
 indexRoutes = require("./routes/index");
+dashboardRoutes = require("./routes/dashboard");
 
 app.use("/", indexRoutes);
+app.use("/", dashboardRoutes);
 
 app.listen(8080, "127.0.0.1", function() {
     console.log("The Server Has Started!");
