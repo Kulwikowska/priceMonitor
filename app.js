@@ -11,7 +11,9 @@ var express = require("express"),
     http = require('http'),
     request = require("request"),
     cheerio = require('cheerio'),
-    URL = require('url-parse')
+    URL = require('url-parse'),
+    schedule = require("node-schedule"),
+    job = require("./jobs/batchProductsRefresherJob")
 
 
 mongoose.connect("mongodb://localhost/crowler");

@@ -6,6 +6,8 @@ var Monitor = require("../monitor/monitor");
 var Product = require("../models/product");
 var middleware = require("../middleware");
 
+
+
 //index route
 router.get("/products", middleware.isLoggedIn, function(req, res) {
 
